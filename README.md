@@ -8,9 +8,12 @@ achieved using Random Forest
 
 ___________________________________________________________________________________________________________________
 
-Image_Classification.py - Code for Image classification in Python
-Image_Classification_Spark.py - Code for Image classification in Spark
-report_final.pdf- A comprehensive report about the project
-run.sh- Bash script for specifying the parameters to execute the Spark code
+#Image_Classification.py - Code for Image classification in Python
+
+#Image_Classification_Spark.py - Code for Image classification in Spark
+
+#report_final.pdf- A comprehensive report about the project
+
+#run.sh- Bash script for specifying the parameters to execute the Spark code
 
 
