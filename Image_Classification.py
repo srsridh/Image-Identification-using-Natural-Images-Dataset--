@@ -71,14 +71,6 @@ image_Fruit = final(path,5,6)
 image_Bike = final(path,6,7)
 image_Person = final(path,7,8)
 
-image_Airplane.update(image_Car)
-image_Airplane.update(image_Cat)
-image_Airplane.update(image_Dog)
-image_Airplane.update(image_Flower)
-image_Airplane.update(image_Fruit)
-image_Airplane.update(image_Bike)
-image_Airplane.update(image_Person)
-
 #A dictionary of all the images and features
 image_All = image_Airplane
 
