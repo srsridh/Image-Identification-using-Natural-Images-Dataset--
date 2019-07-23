@@ -29,12 +29,11 @@ image_Details = {}
 bins = 8
 
 
-# Reading the images to colelct features
+# Reading the images to collect features
 def final(path,class_Val,target_Val):
     os.listdir(path + '/' +classes[class_Val])
     image_Name = sorted(os.listdir(path + '/' + classes[class_Val]))
     os.chdir(path + '/' + classes[class_Val])
-    #print(len(image_Name))
     for img in image_Name:
         if img != '.DS_Store':
             class_List = [target_Val]
@@ -48,19 +47,10 @@ def final(path,class_Val,target_Val):
             cv2.normalize(hist, hist)
             hist_Feature = hist.flatten().flatten().tolist()
             global_Feature = class_List + f1 + feature + haralick + hist_Feature
-            #global_Feature = class_List + f1 + feature
-            #global_Feature = class_List + feature + haralick
-            #global_Feature = np.hstack([target_Val,feature,haralick,hist_Feature,f1])
-            #global_Feature = class_List + f1 + hist_Feature
-            #global_Feature = class_List + f1 + hist_Feature
-            #global_Feature = featureq3xccr  ea
             image_Details[img] = global_Feature
-            #image_Details[img] = [target_Val]+[f1]
         else:
             continue
     return image_Details
-
-
 
 image_Airplane = final(path,0,1)
 image_Car = final(path,1,2)
@@ -76,9 +66,6 @@ image_All = image_Airplane
 
 image_All_df = pd.DataFrame.from_dict(image_All,orient='index')
 
-#image_All_df.to_csv('finals.csv', sep='\t')
-
-
 X = image_All_df.iloc[:,1:len(image_All_df.columns)]
 X = X.values
 Y = image_All_df.iloc[:,0]
@@ -86,8 +73,6 @@ Y = Y.values
 
 #Preapring the training and testing data
 X_train, X_test,Y_train, Y_test = train_test_split(X, Y, test_size = 0.2,random_state = 0)
-
-
 
 # ADA Boost with SVM
 clf = AdaBoostClassifier(SVC(probability=True, kernel='linear'))
@@ -97,7 +82,6 @@ Y_pred = clf.predict(X_test)
 print("accuracy is:",accuracy_score(Y_test,Y_pred))
 
 print("Seconds:%s" % (time.time() - starttime))
-
 
 #SVM
 scaler = StandardScaler()
@@ -113,12 +97,8 @@ training_scores_encoded = lab_enc.fit_transform(Y_train)
 clf = SVC().fit(X_train,Y_train)
 clf.predict(X_train)
 Y_pred = clf.predict(X_test)
-#print(Y_pred)
 print("SVM Accuracy: {}%".format(clf.score(X_test, Y_test) * 100 ))
-#print("SVM accuracy is:",accuracy_score(Y_test,Y_pred))
 print("Seconds:%s" % (time.time() - starttime))
-
-
 
 #ADA Boost with Decision Tree
 from sklearn.tree import DecisionTreeClassifier
@@ -137,7 +117,6 @@ print("Logistic Regression RMSE is:",metrics.mean_squared_error(Y_test, y_pred))
 t = time.time() - starttime
 print("Seconds:%s" % (t*6))
 
-
 #Random Forest
 from sklearn.ensemble import RandomForestClassifier
 rdf=RandomForestClassifier()
@@ -146,5 +125,3 @@ Y_pred=rdf.predict(X_test)
 print("Random Forest Accuracy is:",metrics.accuracy_score(Y_test, Y_pred))
 t = (time.time() - starttime)
 print("Time taken to execute Random Forest:%s" % (t) )
-
-
